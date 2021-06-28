@@ -11,16 +11,25 @@ export default function Login() {
     const passwordRef = useRef()
     const dispatch = useDispatch()
     const history = useHistory()
-    const {user, error, inProcess} = useSelector(state => state.user)
-    
+    const { user, error, inProcess } = useSelector(state => state.user)
 
     firebase.auth().onAuthStateChanged((user) => {
         if (!user) {
-          history.push('/')
+            // dispatch(setUser(user))
+            history.push('/')
         }
-      });
+    });
 
     let loginHandler = () => {
+        if (emailRef.current.value.trim().length === 0) {
+            alert('Email cannot be empty')
+            return
+        }
+        let emailCheck = /.*@.*\..*/
+        if (!emailCheck.test(emailRef.current.value)) {
+            alert('Please enter a valid email address')
+            return
+        }
         if (passwordRef.current.value.trim().length === 0) {
             alert('Password Field cannot be empty')
             return
@@ -29,12 +38,11 @@ export default function Login() {
     }
 
     useEffect(() => {
-        console.log('here')
-
-        if(user && !inProcess){
+        console.log('here', user)
+        if (user !== null && !inProcess) {
             history.push(`/messages`)
         }
-       // eslint-disable-next-line 
+        // eslint-disable-next-line 
     }, [user])
 
     return (
@@ -51,10 +59,10 @@ export default function Login() {
                     <label htmlFor="login-password">Password: </label>
                     <input type="password" id="login-password" ref={passwordRef} />
                 </div>
-                <div className="login-button"><button className='login' disabled = {inProcess} onClick={loginHandler}>Log In</button></div>
+                <div className="login-button-div"><button className='login-button' disabled={inProcess} onClick={loginHandler}>Log In</button></div>
             </div>
             <div className="new-user">
-                <Link to = {`/signup`}>
+                <Link to={`/signup`}>
                     <p>New User? Click here to sign-up</p>
                 </Link>
             </div>

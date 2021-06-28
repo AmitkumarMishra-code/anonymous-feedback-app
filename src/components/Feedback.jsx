@@ -1,6 +1,4 @@
 import { useRef } from "react"
-// eslint-disable-next-line
-import { useEffect } from "react"
 import { useDispatch } from "react-redux"
 import { submitFeedback } from "../redux/actions/actions"
 
@@ -10,6 +8,7 @@ export default function Feedback(props){
 
     let clickHandler = () => {
         dispatch(submitFeedback(props.match.params.id, feedbackRef.current.value))
+        feedbackRef.current.value = ''
     }
 
     return(

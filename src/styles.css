@@ -1,10 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: linen;
+    padding: 25px 0px;
+}
+
+button {
+    padding: 5px 8px;
+    color: white;
+    background-color: indianred;
+    outline: none;
+    border-radius: 5px;
+    border: none;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-weight: 500;
+}
+
+.login,
+.signup {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+    gap: 30px;
+    box-shadow: 3px 3px 5px rgba(128, 128, 128, 0.205);
+    padding: 10px 0px;
+    background-color: white;
+}
+
+.login .form,
+.signup .form {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 90%;
+}
+
+.login .form div,
+.signup .form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.form div input,
+.signup .form input {
+    width: 100%;
+    border-color: rgba(128, 128, 128, 0.397);
+    border-radius: 5px;
+    outline: none;
+    height: 30px;
+    padding: 10px;
+}
+
+.form div label,
+.signup .form label {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.login .form .login-button-div,
+.signup .form .signup-button-div {
+    justify-content: center;
+    align-items: center;
 }
 
 .profile img {
     width: 50px;
     border-radius: 50%;
+}
+
+.messages,
+.feedback-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    gap: 50px;
+}
+
+.messages .profile,
+.feedback-form .profile {
+    display: flex;
+    width: 60%;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.messages .display-messages {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.356);
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.158);
+}
+
+.feedback-form .feedback-area {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedback-area textarea {
+    width: 500px;
+    min-height: 150px;
+    border: 1px solid rgba(128, 128, 128, 0.753);
+    outline: none;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.feedback-area label {
+    font-weight: 700;
 }

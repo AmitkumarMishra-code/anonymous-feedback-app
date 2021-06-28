@@ -1,16 +1,8 @@
-import { useDispatch, useSelector } from "react-redux"
-import { removeMessage } from "../redux/actions/actions"
-
-export default function Message({message, id}){
-    const user = useSelector(state => state.user.user)
-    const dispatch = useDispatch()
-    let removeHandler = () => {
-        dispatch(removeMessage(user.email, id))
-    }
+export default function Message({message, id, method}){
     return(
         <div className="message">
             <p>{message}</p>
-            <button className="remove" onClick = {removeHandler}>
+            <button className="remove" onClick = {() => method(id)}>
                 x
             </button>
         </div>

@@ -1,4 +1,4 @@
-import { BEGIN_LOADING_MESSAGES, BEGIN_SIGNUP_PROCESS, ERROR_LOADING_MESSAGES, LOGIN_PROCESS_BEGIN, LOGIN_PROCESS_ERROR, RESET_USER, SET_USER, SIGNUP_PROCESS_ERROR, SIGNUP_PROCESS_SUCCESS, SUCCESS_LOADING_MESSAGES } from "./actions_types";
+import { BEGIN_LOADING_MESSAGES, BEGIN_SIGNUP_PROCESS, EDIT_MESSAGES, ERROR_LOADING_MESSAGES, LOGIN_PROCESS_BEGIN, LOGIN_PROCESS_ERROR, RESET_USER, SET_USER, SET_USERNAME, SIGNUP_PROCESS_ERROR, SIGNUP_PROCESS_SUCCESS, SUCCESS_LOADING_MESSAGES } from "./actions_types";
 import firebase from '../../firebaseConfig';
 
 const databaseRef = firebase.firestore()
@@ -73,10 +73,16 @@ export let logIn = (email, password) => {
             type: LOGIN_PROCESS_BEGIN
         })
         firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                console.log('finished sign in')
-                    // Signed in
+            .then(async(userCredential) => {
+                // Signed in
                 dispatch(setUser(userCredential.user))
+                let userInDB = await databaseRef.collection('users').where('email', '==', email).get()
+                let username = userInDB.docs[0].data().username
+                console.log(username)
+                dispatch({
+                        type: SET_USERNAME,
+                        payload: username
+                    })
                     // ...
             })
             .catch((error) => {
@@ -122,19 +128,25 @@ export let submitFeedback = (username, message) => {
             let userId = user.docs[0].id
             let response = await databaseRef.collection('users').doc(userId).collection('feedback').add({ message: message })
             console.log(response)
+            alert('Feedback submitted successfully!')
         } catch (error) {
             alert('Error: ' + error)
         }
     }
 }
 
-export let removeMessage = (email, id) => {
+export let removeMessage = (email, id, messages) => {
     return async(dispatch) => {
         try {
             let user = await databaseRef.collection('users').where('email', '==', email).get()
             let userId = user.docs[0].id
             let response = await databaseRef.collection('users').doc(userId).collection('feedback').doc(id).delete()
             console.log(response)
+            let newMessages = messages.filter(message => message.id !== id)
+            dispatch({
+                type: EDIT_MESSAGES,
+                payload: newMessages
+            })
         } catch (error) {
             alert('Error: ' + error)
         }
